@@ -1,0 +1,41 @@
+﻿<ArcGIS defaultAssembly="SmartBuffer.dll" defaultNamespace="SmartBuffer" xmlns="http://schemas.esri.com/DADF/Registry" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://schemas.esri.com/DADF/Registry file:///C:/Program%20Files/ArcGIS/Pro/bin/ArcGIS.Desktop.Framework.xsd">
+  <AddInInfo id="{407e4c57-0c5d-4c33-b813-12e8aaf09b5a}" version="1.0" desktopVersion="3.5.57366">
+    <Name>SmartBuffer</Name>
+    <Description>SmartBuffer:  Site-Specific Riparian Shade Protection Buffer Design</Description>
+    <Image>Images\AddinDesktop32.png</Image>
+    <Author>Kevin Andras</Author>
+    <Company>TerrainWorks</Company>
+    <Date>5/05/2025 9:46:56 AM</Date>
+    <Subject>Framework</Subject>
+    <!-- Note subject can be one or more of these topics:
+                    Content, Framework, Editing, Geodatabase, Geometry, Geoprocessing, Layouts, Map Authoring, Map Exploration -->
+  </AddInInfo>
+  <modules>
+    <insertModule id="SmartBuffer_Module" className="Module1" autoLoad="false" caption="Module1">
+      <!-- uncomment to have the control hosted on a separate tab-->
+      <tabs>
+        <tab id="SmartBuffer_Tab1" caption="Smart Buffer">
+          <group refID="SmartBuffer_Group1"/>
+        </tab>
+      </tabs>
+      <groups>
+        <!-- comment this out if you have no controls on the Addin tab to avoid
+              an empty group-->
+        <group id="SmartBuffer_Group1" caption="SMART BUFFER" appearsOnAddInTab="true">
+          <!-- host controls within groups -->
+          <!--<button refID="SmartBuffer_btSmartBuffer" size="large" />-->
+          <button refID="SmartBuffer_winSmartBuffer" size="large" />
+        </group>
+      </groups>
+      <controls>
+        <!-- add your controls here -->
+        <!--<button id="SmartBuffer_btSmartBuffer" caption="btSmartBuffer" className="btSmartBuffer" loadOnClick="true" smallImage="GenericButtonBlue16" largeImage="GenericButtonBlue32">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>-->
+        <button id="SmartBuffer_winSmartBuffer" caption="SmartBuffer" className="ShowwinSmartBuffer" loadOnClick="true" smallImage="GenericButtonPurple16" largeImage="GenericButtonPurple32">
+          <tooltip heading="Tooltip Heading">Tooltip text<disabledText /></tooltip>
+        </button>
+      </controls>
+    </insertModule>
+  </modules>
+</ArcGIS>

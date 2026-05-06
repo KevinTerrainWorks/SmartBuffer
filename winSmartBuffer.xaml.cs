@@ -39,70 +39,22 @@ namespace SmartBuffer
       txtNetMapProgramFiles.Text = ClassGeneral.SMPath;
       txtSBDirectory.Text = ClassGeneral.SMPath;
 
+      this.Dispatcher.Invoke(new Action(() =>
+      {
+        cboLat.Items.Add("North");
+        cboLat.Items.Add("South");
+        cboLat.SelectedIndex = 0;
+      }));
+
+
+
     }
 
-    //private async void cmdMakeShadeSheds_Click(object sender, RoutedEventArgs e)
-    //{
-
-    //  if (cboReachLayer.SelectedItem == null)
-    //  {
-    //    ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Select a stream layer.");
-    //  }
-
-    //  //string TimePeriod = Convert.ToInt32(cboTimePeriod.SelectedItem.ToString());
-    //  string TimePeriod = cboTimePeriod.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
-
-    //  string TreeHt = Convert.ToString(numTreeHt.Value);
-
-    //  Debug.Print(TimePeriod);
-    //  Debug.Print(TreeHt);
-
-    //  //get the stream layer
-
-    //  string FeatureLayerName = cboReachLayer.SelectedItem.ToString().Replace("System.Windows.Controls.ComboBoxItem: ", "");
-    //  //string FeatureLayerName = cboPoint.SelectedItem.ToString();
-    //  //get feature layer from layer name!
-    //  FeatureLayer FL = MapView.Active.Map.GetLayersAsFlattenedList().OfType<FeatureLayer>().First(l => l.Name.Equals(FeatureLayerName));
-
-
-    //  Selection flSel = null; // FL.GetSelection();
-
-    //  bool selZero = false;
-    //  await QueuedTask.Run(async () =>
-    //  {
-    //    flSel = FL.GetSelection();
-    //    if (flSel.GetCount() == 0)
-    //    {
-    //      selZero = true;
-    //      return;
-    //    }
-
-
-    //  });
-
-    //  if (selZero)
-    //  {
-    //    ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("None selected.");
-    //    return;
-    //  }
-
-    //  //export reach layer.
-
-
-
-    //  //densify vertices???
-
-
-    //}
-
+  
 
     private async void cmdRefreshReach_Click(object sender, RoutedEventArgs e)
     {
-
-
       await QueuedTask.Run(() => RefreshForm());
-
-
     }
 
 
@@ -111,18 +63,6 @@ namespace SmartBuffer
 
       try
       {
-        //if (FindMe() == false) { return; }
-
-
-
-        //check output directory
-        //wshdDir = classLayers.SMPath + "wshd\\";
-        //if (!Directory.Exists(wshdDir))
-        //{ Directory.CreateDirectory(wshdDir); }
-
-        //ScratchPath = classFindMe.NetMap_ScratchPath + "Wshd\\" + classLayers.DSID + "\\";
-
-
         await QueuedTask.Run(() =>
         {
           var mapView = MapView.Active;
@@ -130,24 +70,16 @@ namespace SmartBuffer
             return;
 
           Map activeMap = mapView.Map;
-
-
           var polylineFeatureLayers = activeMap.GetLayersAsFlattenedList().OfType<FeatureLayer>().Where(
                       lyr => lyr.ShapeType == ArcGIS.Core.CIM.esriGeometryType.esriGeometryPolyline).ToList();
-
-
           this.Dispatcher.Invoke(new Action(() =>
                   {
-
                     cboReachLayer.Items.Clear();
                     foreach (var pline in polylineFeatureLayers)
                     {
                       cboReachLayer.Items.Add(pline);
                     }
-
-
                   }));
-
 
           string[] fileList = System.IO.Directory.GetFiles(ClassGeneral.SMPath, "*.shp");
           this.Dispatcher.Invoke(new Action(() =>
@@ -163,9 +95,6 @@ namespace SmartBuffer
             }
           }));
 
-
-
-          //ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("refresh!!!");
         });
       }
       catch (Exception ex)
@@ -250,7 +179,7 @@ namespace SmartBuffer
         string WD = ClassGeneral.SMPath;
         if (cboReachLayer.SelectedItem == null) { return; }
 
-        string TreeHt = Convert.ToString(numTreeHt.Value);
+        
 
         string FeatureLayerName = cboReachLayer.SelectedItem.ToString();
 
@@ -258,9 +187,35 @@ namespace SmartBuffer
         //bool bPRJ = false;
         //#Debug.Print(NMSpatialReference.Name);
 
-        //SpatialReference SRpts = null;
+        SpatialReference SRpts = null;
 
-        //await QueuedTask.Run(() => SRpts = FL.GetSpatialReference());
+        await QueuedTask.Run(() => SRpts = FL.GetSpatialReference());
+
+        //decimal dTreeHt = (decimal)numTreeHt.Value;
+        double sTreeHt = (double)numTreeHt.Value;
+
+        //bool convert = false;
+        Debug.Print(SRpts.Unit.ToString());
+
+
+        if (SRpts.Name.ToString().ToLower().Contains("wgs") | SRpts.Name.ToString().ToLower().Contains("geog"))
+        {
+          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Input layer must be in a coordinate system with X-Y values in meters or feet (not WGS).");
+          return;       
+
+        }
+
+        if (SRpts.Unit.ToString().ToLower().Contains("foot"))
+        {
+          //convert = true;
+          //ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Input layer must be in a coordinate system with X-Y values in meters.");
+          //return;        
+
+          sTreeHt = sTreeHt * 3.281;
+        }
+
+        string TreeHt = Convert.ToString(sTreeHt);
+
 
         int pointSelCount = FL.SelectionCount;
         if (pointSelCount == 0)
@@ -332,12 +287,13 @@ namespace SmartBuffer
         //string configFile = pathSplit + "config.SB";
         //if (System.IO.File.Exists(configFile))
 
+        string lat = cboLat.SelectedItem.ToString();        
 
         string workingDir = ClassGeneral.SMPath;
 
         //var myArguments = "-c \"from Test import Main;Main('Hallo')\"";
         string scriptPath = pathSplit + "ShadeShed_FixedHeight_NoLidar.py";
-        var myArguments = $@"""{scriptPath}"" ""{outPoints}"" ""{outPolys}""  ""{TreeHt}""";
+        var myArguments = $@"""{scriptPath}"" ""{outPoints}"" ""{outPolys}""  ""{TreeHt}"" ""{lat}""";
 
         string pythonExe = Path.Combine(
              Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles),
@@ -392,7 +348,7 @@ namespace SmartBuffer
           ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Output file " + outFile + " has been added to map.");
           this.IsEnabled = true;
           this.Cursor = System.Windows.Input.Cursors.Arrow;
-
+          RefreshForm();
           txtProgress.Text = "Done with " + outFile;
 
           return;
@@ -403,6 +359,7 @@ namespace SmartBuffer
           //ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Some kind of error occurred.");
           ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show(
        $"Exit {processOutcome.ErrCode}\n\nSTDERR:\n{processOutcome.Error}\n\nSTDOUT:\n{processOutcome.Output}");
+          RefreshForm();
           this.IsEnabled = true;
           this.Cursor = System.Windows.Input.Cursors.Arrow;
           return;

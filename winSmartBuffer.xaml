@@ -72,11 +72,19 @@
                 <ComboBox x:Name="cboReachLayer"  Width="200">
                 </ComboBox>
                 <WrapPanel >
-                  <Separator Width="80" Background="Transparent"/>
+                  <Separator Width="10" Background="Transparent"/>
                   <Button ToolTip="If you've loaded a stream layer since opening this window, click here to refresh the list."  x:Name="cmdRefreshReach" Content="Refresh" Width="69" Click="cmdRefreshReach_Click"  HorizontalAlignment="Center"  VerticalAlignment="Center"/>
+                </WrapPanel>
+                <WrapPanel >
+                  <Separator Width="10" Background="Transparent"/>
+
+                  <Label>Zone</Label>
+
+                  <Separator Width="10" Background="Transparent"/>
+                <ComboBox x:Name="cboLat" Width="100">
+                </ComboBox>
 
                 </WrapPanel>
-
               </WrapPanel>
               <Separator Height="10" Background="Transparent"/>
               <!--<WrapPanel>

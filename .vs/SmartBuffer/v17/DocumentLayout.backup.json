@@ -3,28 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\config.daml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:config.daml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\winsmartbuffer.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:winsmartbuffer.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}",
-      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:properties\\resources.resx||{81828910-B8B3-4D2B-99A3-067027C180C1}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\smartbuffer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
-      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:smartbuffer.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\shadeshed_fixedheight_nolidar.py||{8B382828-6202-11D1-8870-0000F87579D2}",
       "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:shadeshed_fixedheight_nolidar.py||{8B382828-6202-11D1-8870-0000F87579D2}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\smartbuffer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:smartbuffer.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\runprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:runprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\winsmartbuffer.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -35,8 +23,8 @@
       "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:classgeneral.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\config.daml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
-      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:config.daml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+      "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\runprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|solutionrelative:runprocess.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{461CAA44-44A8-48E5-BBBC-B568641A850F}|SmartBuffer.csproj|c:\\users\\kevin1024\\source\\repos\\smartbuffer\\btsmartbuffer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -58,31 +46,6 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SmartBuffer",
-              "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\SmartBuffer.csproj",
-              "RelativeDocumentMoniker": "SmartBuffer.csproj",
-              "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\SmartBuffer.csproj",
-              "RelativeToolTip": "SmartBuffer.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-04T21:15:16.221Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Resources.resx",
-              "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\Properties\\Resources.resx",
-              "RelativeDocumentMoniker": "Properties\\Resources.resx",
-              "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\Properties\\Resources.resx",
-              "RelativeToolTip": "Properties\\Resources.resx",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
-              "WhenOpened": "2026-05-04T21:17:39.098Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 5,
               "Title": "RunProcess.cs",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\RunProcess.cs",
@@ -96,20 +59,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 4,
               "Title": "ClassGeneral.cs",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\ClassGeneral.cs",
               "RelativeDocumentMoniker": "ClassGeneral.cs",
               "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\ClassGeneral.cs",
               "RelativeToolTip": "ClassGeneral.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAADwv9cAAAAEAAAAAAAAAA==",
+              "ViewState": "AgIAAI0AAAAAAAAAAADwv6kAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-05-04T16:32:14.444Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "winSmartBuffer.xaml",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\winSmartBuffer.xaml",
               "RelativeDocumentMoniker": "winSmartBuffer.xaml",
@@ -121,20 +84,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "winSmartBuffer.xaml.cs",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\winSmartBuffer.xaml.cs",
               "RelativeDocumentMoniker": "winSmartBuffer.xaml.cs",
-              "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\winSmartBuffer.xaml.cs*",
-              "RelativeToolTip": "winSmartBuffer.xaml.cs*",
-              "ViewState": "AgIAAFcBAAAAAAAAAAAowG8BAAAAAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\winSmartBuffer.xaml.cs",
+              "RelativeToolTip": "winSmartBuffer.xaml.cs",
+              "ViewState": "AgIAAAcBAAAAAAAAAADwvxMBAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-22T18:30:19.919Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "btSmartBuffer.cs",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\btSmartBuffer.cs",
               "RelativeDocumentMoniker": "btSmartBuffer.cs",
@@ -147,40 +110,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Config.daml",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\Config.daml",
               "RelativeDocumentMoniker": "Config.daml",
               "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\Config.daml",
               "RelativeToolTip": "Config.daml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2025-07-22T16:47:02.853Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "ShadeShed_FixedHeight_NoLidar.py",
               "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\ShadeShed_FixedHeight_NoLidar.py",
               "RelativeDocumentMoniker": "ShadeShed_FixedHeight_NoLidar.py",
               "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\ShadeShed_FixedHeight_NoLidar.py",
               "RelativeToolTip": "ShadeShed_FixedHeight_NoLidar.py",
-              "ViewState": "AgIAAD4AAAAAAAAAAAAwwC4AAAAdAAAAAAAAAA==",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
               "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAHeSURBVDhPpVMxa1NRFP7ebZLSlgaltNpSVCySRUxL0NAh4FJpHWpxcZAUBEPG/AKHDsVBN5eGrCnoYKCDoDiUCKKBjtZBUZtJ2ojYJr40ue\u002B\u002B47k3VzD0hQr94OOed8853/k47z2cCETk2NAgk8mQDQMhhFjK5/Mb9vEotIDruoEsFovEzVvZbPaWLTcQ9uxCpVLp4l\u002Bk0\u002BlEPB5/wIPm7RVC9uxCMpm0UTdKpRKi0WiCQy3wUt8FCvw7VSNxbRapG4voDwucGgyjXC7bzH84ePt1HysbH/GhWoNstzA1OoSFhZuxQqFg8sfu4FutAd\u002BT8KSEYm7v7GJ0YnLClgYLaAcjU9N4Vx9Dda8OBz7OjwywSNsIXY39vEL7TxWpxv2eO3hWHUZ19xc8ti25UdvXzdpNWH0BDj8JiLOrPXfweOu9mRgRhOXUEPr7IiBfYeacB9HaBNRvQH4f6\u002BlgMERwGxJP7grEoq9shj9Uz\u002BVGpmIi4vXcwdzlcePgzLAuZPiSGw869Jg\u002Biw1Mvw50oLGcuoh71y8h1HwB1Js8UfFLnwScNnBhdYVLWsy1IwK5XM5GHaw9uu0LeSCMddZA32lz7zjOQxMcByK1SPU3O/Rjnai2fkjNz8/5L77TyQJ/AJc67LNf3QeWAAAAAElFTkSuQmCC",
               "WhenOpened": "2026-05-04T19:25:21.12Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "SmartBuffer",
-              "DocumentMoniker": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\SmartBuffer.csproj",
-              "RelativeDocumentMoniker": "SmartBuffer.csproj",
-              "ToolTip": "C:\\Users\\Kevin1024\\source\\repos\\SmartBuffer\\SmartBuffer.csproj",
-              "RelativeToolTip": "SmartBuffer.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2026-05-04T17:05:59.433Z",
               "EditorCaption": ""
             }
           ]

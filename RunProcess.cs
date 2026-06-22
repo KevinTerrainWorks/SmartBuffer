@@ -58,6 +58,11 @@ namespace SmartBuffer
       return (output.ToString(), error.ToString(), exitCode);
     }
 
+    public Task<(string Output, string Error, int ErrCode)> RunProcessGrabOutputAsync(string Executable, string Arguments, string WorkingDirectory)
+    {
+      return Task.Run(() => RunProcessGrabOutput(Executable, Arguments, WorkingDirectory));
+    }
+
     private void ProcessOutputHandler(object SendingProcess, DataReceivedEventArgs OutLine)
     {
       output.AppendLine(OutLine.Data);

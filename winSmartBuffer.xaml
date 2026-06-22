@@ -38,9 +38,9 @@
             <Separator Height="10" Background="Transparent"/>
             <WrapPanel>
               <Separator Width="10" Background="Transparent"/>
-              <Button  ToolTip="Select the NetMap_Files_xx folder."  x:Name="btProgramFiles" Content="Browse" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="69" Click="btProgramFiles_Click_1"/>
+              <Button  ToolTip="Select the output folder."  x:Name="btProgramFiles" Content="Browse" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="69" Click="btProgramFiles_Click_1"/>
               <Separator Width="10" Background="Transparent"/>
-              <TextBox  ToolTip="Select the NetMap_Files_xx folder."  x:Name="txtNetMapProgramFiles" HorizontalAlignment="Left" Height="27" TextWrapping="Wrap" Text="Browse to select folder" VerticalAlignment="Top" Width="349"/>
+              <TextBox  ToolTip="Select the output folder."  x:Name="txtNetMapProgramFiles" HorizontalAlignment="Left" Height="27" TextWrapping="Wrap" Text="Browse to select folder" VerticalAlignment="Top" Width="349"/>
 
 
             </WrapPanel>
@@ -152,11 +152,15 @@
                 <TextBox   x:Name="txtOutput" TextWrapping="Wrap" Text="" Width="200"/>
               </WrapPanel>
               <Separator Height="5" Background="Transparent"/>
-              <Button ToolTip="Generate polygons defining the upstream contributing area to each selected reach.  
-                                    Output will have the name provided in the 'Output file name' box, below.  Can take 1 to 20 
-                                    minutes, depending on dataset size and quantity of points."  
-                                    x:Name="cmdMakeShadeSheds" Content="Go" Width="121" Click="go_Click" HorizontalAlignment="Center"  VerticalAlignment="Center"/>
-
+              <WrapPanel>
+                <Separator Width="15" Background="Transparent"/>
+                <Button ToolTip="Generate polygons defining the upstream contributing area to each selected reach.                                       Output will have the name provided in the 'Output file name' box, below.  Can take 1 to 20                                      minutes, depending on dataset size and quantity of points."  
+                                    x:Name="cmdMakeShadeSheds" Content="Go" Width="121" Click="go_Click"/>
+                <Separator Width="15" Background="Transparent"/>
+                <!--<Button ToolTip="Generate RELZ buffer"  
+                      x:Name="cmdMakeRELZ" Content="Make RELZ" Width="121" Click="RELZ_Click"/>-->
+                <CheckBox x:Name="chkRELZ" IsChecked="True" Content="Create RELZ buffer" ToolTip="Check this box to create a shapefile of the RELZ buffer."/>
+              </WrapPanel>
 
 
             </StackPanel>

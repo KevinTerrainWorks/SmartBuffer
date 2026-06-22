@@ -13,7 +13,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
+//using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using Microsoft.WindowsAPICodePack.Dialogs;
@@ -50,7 +50,7 @@ namespace SmartBuffer
 
     }
 
-  
+
 
     private async void cmdRefreshReach_Click(object sender, RoutedEventArgs e)
     {
@@ -63,6 +63,9 @@ namespace SmartBuffer
 
       try
       {
+        // Capture the currently selected reach layer name (UI thread).
+        string previouslySelectedName = (cboReachLayer.SelectedItem as FeatureLayer)?.Name;
+
         await QueuedTask.Run(() =>
         {
           var mapView = MapView.Active;
@@ -74,10 +77,19 @@ namespace SmartBuffer
                       lyr => lyr.ShapeType == ArcGIS.Core.CIM.esriGeometryType.esriGeometryPolyline).ToList();
           this.Dispatcher.Invoke(new Action(() =>
                   {
+
                     cboReachLayer.Items.Clear();
                     foreach (var pline in polylineFeatureLayers)
                     {
                       cboReachLayer.Items.Add(pline);
+                    }
+
+                    // Restore the previous selection if that layer still exists.
+                    if (!string.IsNullOrEmpty(previouslySelectedName))
+                    {
+                      var match = polylineFeatureLayers.FirstOrDefault(l => l.Name == previouslySelectedName);
+                      if (match != null)
+                        cboReachLayer.SelectedItem = match;
                     }
                   }));
 
@@ -171,6 +183,24 @@ namespace SmartBuffer
 
     }
 
+    private async void cmdMakeRELZ_Click(object sender, RoutedEventArgs e)
+    {
+
+      try
+      {
+
+        //buffer reach by 9.1 m
+
+      }
+      catch (Exception ex)
+      {
+        //ErrorLog(ex.ToString());
+        ClassGeneral.ErrorLog(ex.ToString());
+        GC.Collect();
+      }
+
+    }
+
     private async void go_Click(object sender, RoutedEventArgs e)
     {
 
@@ -179,7 +209,7 @@ namespace SmartBuffer
         string WD = ClassGeneral.SMPath;
         if (cboReachLayer.SelectedItem == null) { return; }
 
-        
+
 
         string FeatureLayerName = cboReachLayer.SelectedItem.ToString();
 
@@ -201,7 +231,7 @@ namespace SmartBuffer
         if (SRpts.Name.ToString().ToLower().Contains("wgs") | SRpts.Name.ToString().ToLower().Contains("geog"))
         {
           ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Input layer must be in a coordinate system with X-Y values in meters or feet (not WGS).");
-          return;       
+          return;
 
         }
 
@@ -287,7 +317,7 @@ namespace SmartBuffer
         //string configFile = pathSplit + "config.SB";
         //if (System.IO.File.Exists(configFile))
 
-        string lat = cboLat.SelectedItem.ToString();        
+        string lat = cboLat.SelectedItem.ToString();
 
         string workingDir = ClassGeneral.SMPath;
 
@@ -300,7 +330,7 @@ namespace SmartBuffer
              @"ArcGIS\Pro\bin\Python\envs\arcgispro-py3\python.exe");
 
         var process = new RunProcess();
-        var processOutcome = process.RunProcessGrabOutput(pythonExe, myArguments, workingDir);
+        var processOutcome = await process.RunProcessGrabOutputAsync(pythonExe, myArguments, workingDir);
 
         if (!File.Exists(outPolys))
         {
@@ -340,18 +370,52 @@ namespace SmartBuffer
         });
         //Debug.Print("test?");
 
+        string outRELZ = ClassGeneral.SMPath + txtOutput.Text + "_RELZ.shp";
+        mva2 = Geoprocessing.MakeValueArray(FL, outRELZ, "9.1 METERS", "#", "#", "ALL"); //, classLayers.NMSpatialReference);
+        cts2 = new System.Threading.CancellationTokenSource();
+        await QueuedTask.Run(async () =>
+        {
+          var gpResult2 = await Geoprocessing.ExecuteToolAsync("Buffer_analysis", mva2, null, cts2.Token, null, GPExecuteToolFlags.AddToHistory);
+          return true;
+        });
+
+
+        if (File.Exists(outRELZ))
+        {
+          await ClassGeneral.AddLayer(outRELZ);
+        }
+        else
+        {
+          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Error in RELZ.");
+          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show(
+       $"Exit {processOutcome.ErrCode}\n\nSTDERR:\n{processOutcome.Error}\n\nSTDOUT:\n{processOutcome.Output}");
+          RefreshForm();
+          this.IsEnabled = true;
+          this.Cursor = System.Windows.Input.Cursors.Arrow;
+          return;
+        }
+        //calc area of RELZ
+
+        mva2 = Geoprocessing.MakeValueArray(outRELZ, "Area_ha AREA", "#", "HECTARES"); //, classLayers.NMSpatialReference);
+        cts2 = new System.Threading.CancellationTokenSource();
+        await QueuedTask.Run(async () =>
+        {
+          var gpResult2 = await Geoprocessing.ExecuteToolAsync("CalculateGeometryAttributes_management", mva2, null, cts2.Token, null, GPExecuteToolFlags.AddToHistory);
+          return true;
+        });
+
 
         if (File.Exists(outFile))
         {
           await ClassGeneral.AddLayer(outFile);
 
-          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Output file " + outFile + " has been added to map.");
-          this.IsEnabled = true;
-          this.Cursor = System.Windows.Input.Cursors.Arrow;
-          RefreshForm();
-          txtProgress.Text = "Done with " + outFile;
+          
+          //this.IsEnabled = true;
+          //this.Cursor = System.Windows.Input.Cursors.Arrow;
+          //RefreshForm();
+          //txtProgress.Text = "Done with " + outFile;
 
-          return;
+          //return;
 
         }
         else
@@ -364,6 +428,28 @@ namespace SmartBuffer
           this.Cursor = System.Windows.Input.Cursors.Arrow;
           return;
         }
+
+        if (File.Exists(outRELZ) && File.Exists(outFile))
+        {
+          // outRELZ MINUS outFile  =  RELZ area not protected by shade
+          double unprotectedHa = await GetDifferenceAreaHectaresAsync(outRELZ, outFile);
+          txtProgress.Text = $"RELZ outside Shade: {unprotectedHa:F4} ha"; RefreshForm();
+          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Done with {outFile}.  Residual area in RELZ = {unprotectedHa:F4} ha");
+          this.IsEnabled = true;
+          this.Cursor = System.Windows.Input.Cursors.Arrow;
+          return;
+        }
+        else
+        {
+          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show("Some kind of error occurred.");
+         
+          RefreshForm();
+          this.IsEnabled = true;
+          this.Cursor = System.Windows.Input.Cursors.Arrow;
+          return;
+        }
+
+
 
       }
       catch (Exception ex)
@@ -378,6 +464,107 @@ namespace SmartBuffer
 
 
     }
+
+
+    // using ArcGIS.Core.Data;
+    // using ArcGIS.Core.Geometry;
+    // using ArcGIS.Desktop.Framework.Threading.Tasks;
+
+    // Area (hectares) of (minuendShp - subtrahendShp).
+    private static Task<double> GetDifferenceAreaHectaresAsync(string minuendShp, string subtrahendShp)
+    {
+      return QueuedTask.Run(() =>
+      {
+        Geometry minuend = LoadAndUnionShapefile(minuendShp);     // e.g., outRELZ
+        Geometry subtrahend = LoadAndUnionShapefile(subtrahendShp);  // e.g., outFile
+        if (minuend == null || minuend.IsEmpty) return 0.0;
+
+        // Co-project so Difference operates in the same SR.
+        if (subtrahend != null && !subtrahend.IsEmpty &&
+            !subtrahend.SpatialReference.Equals(minuend.SpatialReference))
+        {
+          subtrahend = GeometryEngine.Instance.Project(subtrahend, minuend.SpatialReference);
+        }
+
+        // If subtrahend is empty/null, the "difference" is the whole minuend.
+        Geometry diff = (subtrahend == null || subtrahend.IsEmpty)
+            ? minuend
+            : GeometryEngine.Instance.Difference(minuend, subtrahend);
+
+        if (diff == null || diff.IsEmpty) return 0.0;
+
+        double areaInSrUnits = Math.Abs(GeometryEngine.Instance.Area(diff));
+        var linearUnit = minuend.SpatialReference.Unit as LinearUnit;
+        double sqMeters = linearUnit != null
+            ? areaInSrUnits * linearUnit.ConversionFactor * linearUnit.ConversionFactor
+            : areaInSrUnits;
+        return AreaUnit.Hectares.ConvertFromSquareMeters(sqMeters);
+      });
+    }
+
+    // using ArcGIS.Core.Data;
+    // using ArcGIS.Core.Geometry;
+    // using ArcGIS.Desktop.Framework.Threading.Tasks;
+
+    private static Task<double> GetOverlapAreaHectaresAsync(string shp1Path, string shp2Path)
+    {
+      return QueuedTask.Run(() =>
+      {
+        Geometry g1 = LoadAndUnionShapefile(shp1Path);
+        Geometry g2 = LoadAndUnionShapefile(shp2Path);
+        if (g1 == null || g2 == null || g1.IsEmpty || g2.IsEmpty)
+          return 0.0;
+
+        // Make sure both geometries share the same spatial reference.
+        if (!g1.SpatialReference.Equals(g2.SpatialReference))
+          g2 = GeometryEngine.Instance.Project(g2, g1.SpatialReference);
+
+        // 2-D intersection => polygon (or empty) representing the overlap.
+        var overlap = GeometryEngine.Instance.Intersection(
+            g1, g2, GeometryDimensionType.EsriGeometry2Dimension);
+
+        if (overlap == null || overlap.IsEmpty)
+          return 0.0;
+
+        // Planar area in the spatial reference's linear units.
+        double areaInSrUnits = Math.Abs(GeometryEngine.Instance.Area(overlap));
+
+        // Convert SR units² -> square meters -> hectares.
+        var linearUnit = g1.SpatialReference.Unit as LinearUnit;
+        double sqMeters = linearUnit != null
+            ? areaInSrUnits * linearUnit.ConversionFactor * linearUnit.ConversionFactor
+            : areaInSrUnits; // assume already meters if no linear unit
+        return AreaUnit.Hectares.ConvertFromSquareMeters(sqMeters);
+      });
+    }
+
+
+    private static Geometry LoadAndUnionShapefile(string shpPath)
+    {
+      string folder = Path.GetDirectoryName(shpPath);
+      string name = Path.GetFileNameWithoutExtension(shpPath);
+
+      var conn = new FileSystemConnectionPath(new Uri(folder), FileSystemDatastoreType.Shapefile);
+      using var ds = new FileSystemDatastore(conn);
+      using var fc = ds.OpenDataset<FeatureClass>(name);
+
+      var geoms = new List<Geometry>();
+      using (var cursor = fc.Search(null, false))      // null filter = all rows
+      {
+        while (cursor.MoveNext())
+        {
+          using var feature = (Feature)cursor.Current;
+          var g = feature.GetShape();
+          if (g != null && !g.IsEmpty) geoms.Add(g);
+        }
+      }
+
+      if (geoms.Count == 0) return null;
+      if (geoms.Count == 1) return geoms[0];
+      return GeometryEngine.Instance.Union(geoms);     // merge all polys into one geometry
+    }
+
+
 
     private async void cmdLoad_Click(object sender, RoutedEventArgs e)
     {

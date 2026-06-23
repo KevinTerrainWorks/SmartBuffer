@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartBuffer")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5ef940e6a4b789ad862965db683c47f8843f6100")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1bf86d1217089414ab570319ba01f0a774379886")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartBuffer")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartBuffer")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

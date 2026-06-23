@@ -432,9 +432,19 @@ namespace SmartBuffer
         if (File.Exists(outRELZ) && File.Exists(outFile))
         {
           // outRELZ MINUS outFile  =  RELZ area not protected by shade
+          double shadeHa       = await GetAreaHectaresAsync(outFile);
+          double relzHa        = await GetAreaHectaresAsync(outRELZ);
           double unprotectedHa = await GetDifferenceAreaHectaresAsync(outRELZ, outFile);
-          txtProgress.Text = $"RELZ outside Shade: {unprotectedHa:F4} ha"; RefreshForm();
-          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show($"Done with {outFile}.  Residual area in RELZ = {unprotectedHa:F4} ha");
+
+          txtProgress.Text = $"RELZ outside Shade: {unprotectedHa:F4} ha";
+          RefreshForm();
+
+          ArcGIS.Desktop.Framework.Dialogs.MessageBox.Show(
+              $"Done with {outFile}.\n\n" +
+              $"Shade area (outFile): {shadeHa:F4} ha\n" +
+              $"RELZ area  (outRELZ): {relzHa:F4} ha\n" +
+              $"Residual RELZ area (outside Shade): {unprotectedHa:F4} ha");
+
           this.IsEnabled = true;
           this.Cursor = System.Windows.Input.Cursors.Arrow;
           return;
@@ -469,6 +479,27 @@ namespace SmartBuffer
     // using ArcGIS.Core.Data;
     // using ArcGIS.Core.Geometry;
     // using ArcGIS.Desktop.Framework.Threading.Tasks;
+
+    // using ArcGIS.Core.Data;
+    // using ArcGIS.Core.Geometry;
+    // using ArcGIS.Desktop.Framework.Threading.Tasks;
+
+    // Total polygon area (hectares) of all features in a shapefile.
+    private static Task<double> GetAreaHectaresAsync(string shpPath)
+    {
+      return QueuedTask.Run(() =>
+      {
+        Geometry g = LoadAndUnionShapefile(shpPath);
+        if (g == null || g.IsEmpty) return 0.0;
+
+        double areaInSrUnits = Math.Abs(GeometryEngine.Instance.Area(g));
+        var linearUnit = g.SpatialReference.Unit as LinearUnit;
+        double sqMeters = linearUnit != null
+            ? areaInSrUnits * linearUnit.ConversionFactor * linearUnit.ConversionFactor
+            : areaInSrUnits;
+        return AreaUnit.Hectares.ConvertFromSquareMeters(sqMeters);
+      });
+    }
 
     // Area (hectares) of (minuendShp - subtrahendShp).
     private static Task<double> GetDifferenceAreaHectaresAsync(string minuendShp, string subtrahendShp)
